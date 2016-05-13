@@ -9,6 +9,7 @@
     <version>0.1.0</version>
     <modules>
         <module>fxclient</module>
+        <module>bootserver</module>
     </modules>
 
     <parent>

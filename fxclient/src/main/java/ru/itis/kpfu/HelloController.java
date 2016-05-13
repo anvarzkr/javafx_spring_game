@@ -32,7 +32,8 @@ public class HelloController {
             public void run() {
                 try {
                     CloseableHttpClient httpclient = HttpClients.createDefault();
-                    HttpGet httpGet = new HttpGet("http://localhost:8080/new");
+                    HttpGet httpGet = new HttpGet("http://localhost:8090/new");
+                    log.debug("Http request sent to  " + httpGet.getURI());
                     CloseableHttpResponse response1 = httpclient.execute(httpGet);
                     BufferedReader rd = new BufferedReader(new InputStreamReader(response1.getEntity().getContent()));
                     StringBuffer result = new StringBuffer();
