@@ -8,31 +8,22 @@ import org.springframework.stereotype.Service;
 @Service
 public class GameServiceImpl implements GameService {
 
-    public static Game currentGame;
-    public Game gameToreturn;
-    public static int countGamer=0;
-    public static int countGame=0;
-
     @Override
-    public Game newGamer() {
-        if (currentGame==null)
-        {
-            currentGame=new Game();
-            currentGame.counter=countGame;
-            countGame++;
-            currentGame.gamer1=new Gamer();
-            currentGame.gamer1.counter=countGamer;
-            countGamer++;
-            gameToreturn=currentGame;
+    public synchronized int newGamer() {
+        if (Game.currentGame == null) {
+            Game.lastGameId++;
+            Game.currentGame = new Game();
+
+            Game.allGames.put(Game.lastGameId, Game.currentGame);
+
+            Game.currentGame.gamer1 = new Gamer();
+        } else {
+            Game.currentGame.gamer2 = new Gamer();
+
+            Game.currentGame = null;
+
+            return -Game.lastGameId;
         }
-        else
-        {
-            currentGame.gamer2=new Gamer();
-            currentGame.gamer2.counter=countGamer;
-            countGamer++;
-            gameToreturn=currentGame;
-            currentGame=null;
-        }
-        return gameToreturn;
+        return Game.lastGameId;
     }
 }

@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 
 public interface GameService {
 
-    public Game newGamer();
+    public int newGamer();
 }
